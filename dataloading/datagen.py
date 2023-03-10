@@ -37,4 +37,5 @@ class CustomDataGen(Dataset):
         if self.transform:
             img = self.transform(img)
 
-        return img, self.labels[idx]
+        label = torch.tensor(self.labels[idx], dtype=torch.long)
+        return img, label

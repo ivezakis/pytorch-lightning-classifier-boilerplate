@@ -26,7 +26,6 @@ class Net(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self(x)
-        y = F.one_hot(y, num_classes=self.num_classes).float()
         loss = self.criterion(y_hat, y)
         self.log("train_loss", loss)
         return loss
@@ -35,7 +34,6 @@ class Net(pl.LightningModule):
         x, y = batch
         y_hat = self(x)
         self.confusion_matrix.update(y_hat, y)
-        y = F.one_hot(y, num_classes=self.num_classes).float()
         loss = self.criterion(y_hat, y)
         self.log("val_loss", loss)
         return loss
